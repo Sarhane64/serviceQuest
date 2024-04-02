@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { CoktailsService } from '../coktails.service.js';
+import { Component } from '@angular/core';
+import { JsoncocktailService } from '../jsoncocktail.service.js';
 import { CommonModule } from '@angular/common';
 import { coktailOptions } from '../model/coktailsmodel.js';
 
@@ -13,13 +13,11 @@ import { coktailOptions } from '../model/coktailsmodel.js';
 export class CoktailsListComponent {
   cocktails: coktailOptions[] = [];
 
-  constructor(private coktailsService: CoktailsService) {}
+  constructor(private JsoncocktailService: JsoncocktailService) {}
 
-  ngOnInit() {
-    this.getCoktail();
-  }
-
-  getCoktail() {
-    this.cocktails = this.coktailsService.getCocktails();
+  ngOnInit(): void {
+    this.JsoncocktailService.getCocktails().subscribe((cok) => {
+      this.cocktails = cok;
+    });
   }
 }
